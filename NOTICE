@@ -1,0 +1,9 @@
+MCPLaya
+Copyright 2026 Guillermo Montenegro
+
+Uses Laya 0.3.20 by Convai Innovations as an external dependency.
+Laya: https://github.com/NandhaKishorM/laya
+Official checkpoints: https://huggingface.co/convaiinnovations
+Laya and the three official checkpoint cards declare Apache-2.0.
+This distribution contains no Laya implementation or model weights.
+MCPLaya is independently developed and does not imply upstream endorsement.
