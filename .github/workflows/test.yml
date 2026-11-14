@@ -2,15 +2,32 @@ name: Test and package
 on: [push, pull_request]
 jobs:
   test:
-    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-15, macos-15-intel]
+        python: ["3.10", "3.12"]
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v6
-      - run: uv sync --frozen --extra dev --python 3.12
-      - run: uv run --frozen --extra dev pytest
-      - run: uv run --frozen --extra dev python scripts/package_skill.py
+      - run: uv sync --frozen --extra dev --python ${{ matrix.python }}
+      - run: uv run --frozen --extra dev python -m pytest
+      - run: uv run --frozen --extra dev python scripts/validate_usage_skill.py
+      - run: uv run --frozen mcplaya doctor
+      - run: uv run --frozen --extra dev python scripts/export_usage_skill.py --harness all
       - run: uv run --frozen --extra dev python -m build
+      - name: Install wheel in isolated environment
+        run: uv venv --python ${{ matrix.python }} .wheel-test
+      - if: runner.os != 'Windows'
+        run: uv pip install --python .wheel-test/bin/python dist/mcplaya-0.1.0-py3-none-any.whl
+      - if: runner.os == 'Windows'
+        run: uv pip install --python .wheel-test/Scripts/python.exe dist/mcplaya-0.1.0-py3-none-any.whl
+      - if: runner.os != 'Windows'
+        run: .wheel-test/bin/python scripts/smoke_install.py
+      - if: runner.os == 'Windows'
+        run: .wheel-test/Scripts/python.exe scripts/smoke_install.py
       - uses: actions/upload-artifact@v4
         with:
-          name: mcplaya-distribution
+          name: mcplaya-${{ matrix.os }}-py${{ matrix.python }}
           path: dist/*

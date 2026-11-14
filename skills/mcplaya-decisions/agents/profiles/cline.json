@@ -1,0 +1,9 @@
+{
+  "format": "mcplaya-skill-export-v1",
+  "id": "cline",
+  "display_name": "Cline",
+  "project_skill_directory": ".cline/skills",
+  "include_openai_metadata": false,
+  "documentation": "https://docs.cline.bot/customization/skills",
+  "verified_on": "2026-11-13"
+}

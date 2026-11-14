@@ -1,0 +1,9 @@
+{
+  "format": "mcplaya-skill-export-v1",
+  "id": "gemini-cli",
+  "display_name": "Gemini CLI",
+  "project_skill_directory": ".gemini/skills",
+  "include_openai_metadata": false,
+  "documentation": "https://geminicli.com/docs/cli/skills/",
+  "verified_on": "2026-11-13"
+}

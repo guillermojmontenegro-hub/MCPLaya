@@ -4,9 +4,11 @@ import os
 import subprocess
 import sys
 from pathlib import Path
+import pytest
 
 
-def test_stdio_tools_and_errors(tmp_path):
+@pytest.mark.parametrize("launch", [["-m", "mcplaya.server"], ["-m", "mcplaya"], ["-m", "mcplaya", "serve"]])
+def test_stdio_tools_and_errors(tmp_path, launch):
     requests = [
         {"jsonrpc":"2.0", "id":1, "method":"initialize", "params":{"protocolVersion":"2025-11-25", "capabilities":{}, "clientInfo":{"name":"test", "version":"1"}}},
         {"jsonrpc":"2.0", "method":"notifications/initialized"},
@@ -15,9 +17,9 @@ def test_stdio_tools_and_errors(tmp_path):
         {"jsonrpc":"2.0", "id":4, "method":"tools/call", "params":{"name":"laya_start_sequence", "arguments":{"goal":"Inspect local state"}}},
         {"jsonrpc":"2.0", "id":5, "method":"tools/call", "params":{"name":"laya_get_sequence", "arguments":{"sequence_id":"unknown"}}},
     ]
-    env = dict(os.environ, MCPLAYA_DB=str(tmp_path / "protocol.db"), HF_HUB_OFFLINE="1")
-    proc = subprocess.Popen([sys.executable, "-m", "mcplaya.server"], stdin=subprocess.PIPE,
-                            stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, env=env)
+    env = dict(os.environ, MCPLAYA_DB=str(tmp_path / "Zoë Data/protocol.db"), HF_HUB_OFFLINE="1", PYTHONUTF8="1")
+    proc = subprocess.Popen([sys.executable, *launch], stdin=subprocess.PIPE,
+                            stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, encoding="utf-8", env=env)
     # Keep stdin open until responses arrive: EOF can cancel in-flight tool calls.
     import queue
     import threading

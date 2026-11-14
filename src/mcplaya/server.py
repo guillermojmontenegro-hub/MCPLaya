@@ -1,11 +1,10 @@
 """MCP stdio server, independent of upstream server globals."""
-import os
 import threading
-from pathlib import Path
 from mcp.server.mcpserver import MCPServer
 from mcp.server.mcpserver.exceptions import ToolError
 from .backend import Backend
 from .engine import Engine
+from .paths import database_path
 
 server = MCPServer("mcplaya", version="0.1.0")
 backend = Backend()
@@ -17,8 +16,7 @@ def engine():
     global _engine
     with _lock:
         if _engine is None:
-            root = Path(os.environ.get("XDG_STATE_HOME", str(Path.home() / ".local/state")))
-            _engine = Engine(Path(os.environ.get("MCPLAYA_DB", str(root / "mcplaya/sequences.sqlite3"))), backend)
+            _engine = Engine(database_path(), backend)
     return _engine
 
 
@@ -80,7 +78,7 @@ def laya_close_sequence(sequence_id: str, revision: int, reason: str) -> dict:
 
 
 def main():
-    server.run()
+    server.run(transport="stdio")
 
 
 if __name__ == "__main__":

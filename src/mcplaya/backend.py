@@ -25,11 +25,11 @@ class Backend:
             from laya import Router, load
             if os.environ.get("LAYA_ACTION_MODEL"):
                 if self.agent is None:
-                    self.agent = load(os.environ["LAYA_ACTION_MODEL"], device=os.environ.get("LAYA_DEVICE") or None)
+                    self.agent = load(os.environ["LAYA_ACTION_MODEL"], device=os.environ.get("LAYA_DEVICE") or "cpu")
                 result = self.agent.predict(state, questions)
             else:
                 if self.router is None:
-                    self.router = Router(device=os.environ.get("LAYA_DEVICE") or None)
+                    self.router = Router(device=os.environ.get("LAYA_DEVICE") or "cpu")
                 result = self.router.predict(state, questions, model=None if model == "auto" else model)
         return {"answers": result["answers"], "warning": WARNING}
 
@@ -51,7 +51,7 @@ class Backend:
         return {"action_id": action_id, "confidence": confidence, "warning": WARNING}
 
     def status(self):
-        return {"device_preference": os.environ.get("LAYA_DEVICE", "auto"),
+        return {"device_preference": os.environ.get("LAYA_DEVICE") or "cpu",
                 "router_initialized": self.router is not None,
                 "loaded": list(self.router.loaded) if self.router else [],
                 "custom_checkpoint_loaded": self.agent is not None, "warning": WARNING}

@@ -1,0 +1,9 @@
+{
+  "format": "mcplaya-skill-export-v1",
+  "id": "copilot",
+  "display_name": "GitHub Copilot",
+  "project_skill_directory": ".github/skills",
+  "include_openai_metadata": false,
+  "documentation": "https://code.visualstudio.com/docs/agent-customization/agent-skills",
+  "verified_on": "2026-11-13"
+}

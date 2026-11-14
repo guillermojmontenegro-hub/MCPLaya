@@ -1,30 +1,9 @@
-# Setup and tool reference
+# MCP tool reference
 
-MCPLaya: https://github.com/guillermojmontenegro-hub/MCPLaya
-Python >=3.10 and uv are required. The user installs the server separately:
-
-```sh
-git clone https://github.com/guillermojmontenegro-hub/MCPLaya.git
-cd MCPLaya
-uv sync --frozen
-```
-
-Add this server to a client supporting stdio MCP. Replace the absolute project
-path and uv executable as needed:
-
-```json
-{"mcpServers":{"mcplaya":{"command":"uv","args":["--directory","/ABSOLUTE/PATH/MCPLaya","run","--frozen","mcplaya"],"env":{"LAYA_DEVICE":"cpu"}}}}
-```
-
-For VS Code Copilot, use `.vscode/mcp.json` with a top-level `servers` object,
-not `mcpServers`, and add `"type":"stdio"` to the server entry. Restart/reload
-according to your client's MCP UI and verify `laya_status` is discoverable.
-First inference downloads official weights from Hugging Face. Later inference
-uses the cache. Startup/status do not download weights. No API key is required
-for public checkpoints. `LAYA_ACTION_MODEL` can select an existing compatible
-local checkpoint; its license and task accuracy must be reviewed separately.
-`MCPLAYA_DB` overrides the SQLite history path; otherwise it is stored under
-`$XDG_STATE_HOME/mcplaya` or `~/.local/state/mcplaya`. Avoid secrets in observations.
+Install and connect the local server using the [installation guide](INSTALLATION.md),
+then verify `laya_status` is available in the agent's tools. The
+[decision workflow](WORKFLOW.md) explains when to use individual decisions and
+how to manage dependent sequences.
 
 ## Example sequence
 

@@ -1,0 +1,4 @@
+interface:
+  display_name: "MCPLaya Decisions"
+  short_description: "Classify text and make bounded local MCP decisions"
+  default_prompt: "Use $mcplaya-decisions to classify this text or choose the next action with MCPLaya."

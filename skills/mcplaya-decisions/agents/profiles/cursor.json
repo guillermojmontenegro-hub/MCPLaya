@@ -1,0 +1,9 @@
+{
+  "format": "mcplaya-skill-export-v1",
+  "id": "cursor",
+  "display_name": "Cursor",
+  "project_skill_directory": ".cursor/skills",
+  "include_openai_metadata": false,
+  "documentation": "https://cursor.com/docs/skills",
+  "verified_on": "2026-11-13"
+}

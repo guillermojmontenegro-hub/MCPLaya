@@ -7,17 +7,27 @@ name = "mcplaya"
 version = "0.1.0"
 description = "Laya MCP decision delegation with durable observe-decide-act sequences"
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.10,<3.13"
 license = "Apache-2.0"
 license-files = ["LICENSE", "NOTICE", "third_party/*"]
 authors = [{name = "Guillermo Montenegro"}]
-dependencies = ["laya[mcp]==0.3.20"]
+dependencies = [
+    "laya[mcp]==0.3.20",
+    "mcp>=2.2,<3",
+    # Intel macOS has no PyTorch wheels after 2.2.2. Keep its inference stack
+    # compatible with that version and NumPy's pre-2 ABI.
+    "torch==2.2.2; sys_platform == 'darwin' and platform_machine == 'x86_64'",
+    "torch>=2.6; sys_platform != 'darwin' or platform_machine != 'x86_64'",
+    "numpy<2; sys_platform == 'darwin' and platform_machine == 'x86_64'",
+    "transformers>=4.48,<4.50; sys_platform == 'darwin' and platform_machine == 'x86_64'",
+    "transformers>=4.50; sys_platform != 'darwin' or platform_machine != 'x86_64'",
+]
 
 [project.optional-dependencies]
 dev = ["pytest>=8,<10", "build>=1,<2"]
 
 [project.scripts]
-mcplaya = "mcplaya.server:main"
+mcplaya = "mcplaya.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

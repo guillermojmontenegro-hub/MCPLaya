@@ -1,0 +1,9 @@
+{
+  "format": "mcplaya-skill-export-v1",
+  "id": "claude-code",
+  "display_name": "Claude Code",
+  "project_skill_directory": ".claude/skills",
+  "include_openai_metadata": false,
+  "documentation": "https://code.claude.com/docs/en/skills",
+  "verified_on": "2026-11-13"
+}

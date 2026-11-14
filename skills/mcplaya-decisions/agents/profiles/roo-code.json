@@ -1,0 +1,9 @@
+{
+  "format": "mcplaya-skill-export-v1",
+  "id": "roo-code",
+  "display_name": "Roo Code",
+  "project_skill_directory": ".roo/skills",
+  "include_openai_metadata": false,
+  "documentation": "https://roocodeinc.github.io/Roo-Code/features/skills/",
+  "verified_on": "2026-11-13"
+}

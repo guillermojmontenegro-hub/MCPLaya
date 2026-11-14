@@ -1,8 +1,3 @@
----
-name: laya-decisions
-description: Delegate finite choices and repeated dependent decisions to Laya through MCPLaya. Use for next-action selection, observe-decide-act loops, workflow routing, or sequences where each decision needs the previous action outcome. Requires the separately installed local MCPLaya MCP server.
----
-
 # Delegate decisions to Laya
 
 Use Laya for bounded choices over observed facts. The agent gathers evidence,
@@ -13,10 +8,9 @@ For writing, coding or open-ended reasoning, use the agent's own capabilities.
 ## Prerequisite
 
 Check for `laya_status` in the connected tools (client prefixes may differ).
-If unavailable, explain that MCPLaya is required. Installation instructions and
-tool schemas are in [references/usage.md](references/usage.md). Agensi delivers
-this skill's instructions; it does not host or install the local inference server.
-Do not install software or edit client configuration merely because the skill loaded.
+If unavailable, install and connect MCPLaya using the
+[installation guide](INSTALLATION.md). See the [tool reference](TOOLS.md) for
+schemas and request examples.
 
 ## A sequence of dependent decisions
 
